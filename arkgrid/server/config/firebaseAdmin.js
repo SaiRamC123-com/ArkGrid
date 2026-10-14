@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const { getApps } = require("firebase-admin/app");
 
 let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
@@ -7,7 +8,7 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   serviceAccount = require("./serviceAccountKey.json"); // local only
 }
 
-if (!admin.apps.length) {
+if (getApps().length === 0) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
